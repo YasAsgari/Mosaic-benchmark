@@ -1,7 +1,5 @@
 # Import necessary libraries
 import itertools            # Library for efficient looping and iteration
-import random               # Library for random number generation
-import json                 # Library for working with JSON data
 import numpy as np          # Library for numerical computations
 import pandas as pd         # Library for data manipulation and analysis
 from matplotlib import pyplot as plt  # Library for creating visualizations
@@ -10,8 +8,11 @@ import seaborn as sns      # Library for creating informative and attractive sta
 from tqdm import tqdm       # Library for adding progress bars to loops
 import networkx as nx       # Library for creating and manipulating networks/graphs
 
-
-def simulate_poisson_process(lmbda, t_start, t_end):
+def simulate_poisson_process(
+    lmbda: float,
+    t_start: float,
+    t_end: float
+) -> list:
     """
     Simulates a Poisson process with a given arrival rate (lambda) within a specified time interval.
 
@@ -33,4 +34,4 @@ def simulate_poisson_process(lmbda, t_start, t_end):
         arrival_times = np.array([np.random.uniform(t_start, t_end)])
 
     # Round the arrival times to two decimal places for cleaner output
-    return arrival_times.round(2)
+    return list(arrival_times.round(2))
