@@ -91,3 +91,9 @@ Mosaic is written in Python and requires the following package to run:
 - Numpy
 - Matplotlib
 - itertools
+
+
+# Tutorial
+Check out the official tutorial to get started!
+
+
