@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mosaic"
 version = "0.0.1"
-description = ""
+description = "A package to create modular link streams used for testing dynamic community detection algoritms"
 authors = ["Yasaman Asgari <50579308+YasAsgari@users.noreply.github.com>"]
 readme = "README.md"
 
