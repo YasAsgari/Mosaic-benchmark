@@ -52,7 +52,4 @@ class Modular_linkstream:
         if ax==None:
             fig,ax=plt.subplots(nrows=1, ncols=1, figsize=(8,6), dpi=200)       
         visualize_mosaics(self.communities, ax)
-    def snap_shot_scenario_generator(self):
-        pass
-    def random_scenario_generator(self):
-        pass
+

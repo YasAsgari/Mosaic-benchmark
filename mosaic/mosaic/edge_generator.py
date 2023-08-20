@@ -39,16 +39,15 @@ def outside_temporal_edges(mosaic1: Mosaic, mosaic2: Mosaic, alpha: float, beta:
     Returns:
         list: A list of tuples representing generated temporal edges (u, v, t).
     """
-    edge_stream = []
+    stream = []
     # Find the intersection time interval between the two mosaics
     start, end = time_intersection(mosaic1, mosaic2)
     # Generate edges if there is a non-zero intersection interval
     if end != start:
         edges = create_stable_backbone_outside(mosaic1, mosaic2, alpha, beta)
         # Generate temporal edges using Poisson process and extend the edge stream
-        arrival_edges=[(u, v, t) for (u, v) in edges for t in simulate_poisson_process(lambda_out, start, end)]
-        edge_stream.extend(arrival_edges)
-    return edge_stream
+        stream=[(u, v, t) for (u, v) in edges for t in simulate_poisson_process(lambda_out, start, end)]
+    return stream
 
 
 # Define a function for generating temporal edges within a mosaic community
