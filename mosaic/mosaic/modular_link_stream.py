@@ -14,10 +14,10 @@ class Modular_linkstream:
         self.number_of_nodes=number_of_nodes
         self.number_of_communities=0
         self.communities={}
-        if sceneraio_description=='random':
-            self.snap_shot_scenario_generator()
-        elif sceneraio_description=='snapshot':
-            self.snap_shot_scenario_generator()
+        #if sceneraio_description=='random':
+          #  self.snap_shot_scenario_generator()
+       # elif sceneraio_description=='snapshot':
+        #    self.snap_shot_scenario_generator()
         
         self.temporal_edges=[]
 
@@ -45,8 +45,9 @@ class Modular_linkstream:
         self.temporal_edges.clear()
 
     def export(self, address:str):
-        df=pd.DataFrame(self.temporal_edges, columns=['node1', 'node2','time'])
-        df.to_csv(address+'-edges.csv')
+        edge_stream_dataframe=pd.DataFrame(self.temporal_edges, columns=['node1', 'node2','time'])
+        edge_stream_dataframe.to_csv(address+'-edges.csv', index=False)
+        np.save(address+'-communities.npy', self.communities) 
 
     def plot(self, ax=None):
         if ax==None:
