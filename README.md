@@ -28,27 +28,27 @@ The algorithm can be used as a standalone program and integrated into Python scr
 
 **Link stream parameters**
 
-Name  |  Type | Description | Default 
--------------  | ------------- |------------- | -------------
-number_of_nodes  | Integer | Number of nodes | -
-starting_time |Float | Starting time for link stream's time domain| 0
-ending_time | Float |Ending time for link stream's time domain | -
+Name  |  Type | Description 
+-------------  | ------------- |-------------
+number_of_nodes  | Integer | Number of nodes
+starting_time |Float | Starting time for link stream's time domain
+ending_time | Float |Ending time for link stream's time domain 
 
 
 **Community parameters**
 
-Name  |  Type | Description | Default 
--------------  | ------------- |------------- | -------------
-nodes | List | list of Integer indices inside a community | -
-starting_time |Float | Starting time for commuity| -
-ending_time | Float |Ending time for community | -
+Name  |  Type | Description 
+-------------  | ------------- |------------- 
+nodes | List | list of Integer indices inside a community 
+starting_time |Float | Starting time for community
+ending_time | Float |Ending time for community 
 
 **Scenario parameters**
 
-Name  |  Type | Description | Default 
--------------  | ------------- |------------- | -------------
-$\alpha$ | Float | [0.5,1): defines the internal density coefficient | -
-$\beta$ |Float | [0,1]: related to community identifialbility  -
+Name  |  Type | Description 
+-------------  | ------------- |-------------
+$\alpha$ | Float | [0.5,1): defines the internal density coefficient 
+$\beta$ |Float | [0,1]: related to community identifialbility  
 
 All parameters have a default value.
 In order to generate a dynamic graph of 1000 nodes for 1000 iterations applying the simplified version of the algorithm just use:
