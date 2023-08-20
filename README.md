@@ -7,11 +7,43 @@ However, evaluating the performance of these algorithms remains a challenge. A w
 
 ``Mosaic`` is a meta-library for creating modular link streams for testing dynamic community detection algorithms in complex temporal networks: it creates communities, visualises them and exports the network to csv files.
 
+
 ================ =================== ==================  ==========  ===============
    **Date**      **Python Versions**   **Main Author**   **GitHub**      **pypl**
 |date|                 3.8-3.9       `Yasaman Asgari`_  `Source`_   `Distribution`_
 ================ =================== ==================  ==========  ===============
 
+^^^^^^^^^^^^^^
+CDlib Dev Team
+^^^^^^^^^^^^^^
+
+======================= ============================
+**Name**                **Contribution**
+`Giulio Rossetti`_      Library Design/Documentation
+`Letizia Milli`_        Community Models Integration
+`Rémy Cazabet`_         Visualization
+`Salvatore Citraro`_    Community Models Integration
+======================= ============================
+
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   overview.rst
+   installing.rst
+   tutorial.rst
+   reference/reference.rst
+   bibliography.rst
+
+
+.. _`Giulio Rossetti`: http://www.about.giuliorossetti.net
+.. _`Letizia Milli`: https://github.com/letiziam
+.. _`Salvatore Citraro`: https://github.com/dsalvaz
+.. _`Rémy Cazabet`: http://cazabetremy.fr
+.. _`Source`: https://github.com/GiulioRossetti/CDlib
+.. _`Distribution`: https://pypi.python.org/pypi/CDlib
+.. _`SoBigData++`: https://sobigdata.d4science.org/group/sobigdata-gateway/explore?siteId=20371853
 ## Citation
 If you use our algorithm, please cite the following works:
 
