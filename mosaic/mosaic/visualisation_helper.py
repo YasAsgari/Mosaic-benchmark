@@ -10,3 +10,6 @@ def plot_rectangles_simple(rectangles,ax , colors):
   ax.invert_yaxis()
   ax.set_aspect('equal')
   ax.axis('off')
+
+
+#color
