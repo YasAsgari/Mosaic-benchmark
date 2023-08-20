@@ -20,7 +20,7 @@ class Mosaic:
         """
         assert t_end>t_start, 'Ending time should be greater than starting time'
         assert len(nodes)>0, 'Mosaic can not be empty'
-        assert t_start>0, 'starting time should be positive'
+        assert t_start>=0, 'starting time should be positive'
         self.nodes = nodes
         self.t_start = t_start
         self.t_end = t_end

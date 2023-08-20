@@ -1,8 +1,10 @@
 import itertools
+import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
 from mosaic.mosaic_community import Mosaic
 from mosaic.edge_generator import outside_temporal_edges,inside_temporal_edges
-#from mosaic.scenario_description_helper import random_scenario, snapshot_scenario
+from mosaic.visualisation_helper import visualize_mosaics
 class Modular_linkstream:
     def __init__(self, number_of_nodes:int, t_start: float, t_end: float, sceneraio_description: str=None) :
         assert t_start>=0,'Starting time should be non-negative'
@@ -16,6 +18,8 @@ class Modular_linkstream:
             self.snap_shot_scenario_generator()
         elif sceneraio_description=='snapshot':
             self.snap_shot_scenario_generator()
+        
+        self.temporal_edges=[]
 
     def add_community(self,nodes: list, t_start: float, t_end: float):
         self.number_of_communities+=1
@@ -29,15 +33,25 @@ class Modular_linkstream:
         raise AssertionError('Label is not present')
     
     def generate_edges(self, alpha:float, beta:float, lmbda_in:float, lmbda_out:float):
-        stream=[]
+        self.temporal_edges.clear()
+        
         for mosaic1 , mosaic2 in itertools.combinations(self.communities.values(),2):
-            stream.extend(outside_temporal_edges(mosaic1,mosaic2, lmbda_out,alpha, beta))
+            self.temporal_edges.extend(outside_temporal_edges(mosaic1,mosaic2, lmbda_out,alpha, beta))
+        
         for mosaic in self.communities.values():
-            stream.extend(inside_temporal_edges(mosaic,alpha, lmbda_in))
-        return pd.DataFrame(stream, columns=['node1', 'node2','time'])
+            self.temporal_edges.extend(inside_temporal_edges(mosaic,alpha, lmbda_in))
+
+    def clear_edges(self):
+        self.temporal_edges.clear()
 
     def export(self, address:str):
-        pass
+        df=pd.DataFrame(self.temporal_edges, columns=['node1', 'node2','time'])
+        df.to_csv(address+'-edges.csv')
+
+    def plot(self, ax=None):
+        if ax==None:
+            fig,ax=plt.subplots(nrows=1, ncols=1, figsize=(8,6), dpi=200)       
+        visualize_mosaics(self.communities, ax)
     def snap_shot_scenario_generator(self):
         pass
     def random_scenario_generator(self):
