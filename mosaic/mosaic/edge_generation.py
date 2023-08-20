@@ -1,16 +1,7 @@
+"""Module providing Function for step generating edges"""
 # Import necessary libraries
-import itertools            # Library for efficient looping and iteration
 import numpy as np          # Library for numerical computations
-import pandas as pd         # Library for data manipulation and analysis
-from matplotlib import pyplot as plt  # Library for creating visualizations
-# Library for drawing rectangles in plots
-from matplotlib.patches import Rectangle
-# Library for creating informative and attractive statistical graphics
-import seaborn as sns
-from tqdm import tqdm       # Library for adding progress bars to loops
 import networkx as nx       # Library for creating and manipulating networks/graphs
-
-
 def simulate_poisson_process(
     lmbda: float,
     t_start: float,
