@@ -1,6 +1,6 @@
 """Module for generating edges"""
 # Import necessary functions and classes from modules
-from mosaic.edge_generation_helper import *
+from mosaic.edge_generation_helper import * 
 from mosaic.mosaic_community import Mosaic
 
 # Define a function to find the intersection time interval between two mosaics
