@@ -12,7 +12,10 @@ class Modular_linkstream:
         self.number_of_nodes=number_of_nodes
         self.number_of_communities=0
         self.communities={}
-
+        if sceneraio_description=='random':
+            self.snap_shot_scenario_generator()
+        elif sceneraio_description=='snapshot':
+            self.snap_shot_scenario_generator()
 
     def add_community(self,nodes: list, t_start: float, t_end: float):
         self.number_of_communities+=1
@@ -34,4 +37,8 @@ class Modular_linkstream:
         return pd.DataFrame(stream, columns=['node1', 'node2','time'])
 
     def export(self, address:str):
+        pass
+    def snap_shot_scenario_generator(self):
+        pass
+    def random_scenario_generator(self):
         pass
