@@ -9,7 +9,7 @@ from mosaic.visualisation_helper import visualize_mosaics
 
 # Define a class for managing a modular link stream
 class ModularLinkStream:
-    def __init__(self, number_of_nodes: int, t_start: float, t_end: float, scenario_description: str = None):
+    def __init__(self, number_of_nodes: int, t_start: float, t_end: float):
         """
         Initialize the ModularLinkStream class.
 
