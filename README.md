@@ -84,7 +84,7 @@ Example:
 
 # Dependencies
 
-RDyn is written in Python and requires the following package to run:
+Mosaic is written in Python and requires the following package to run:
 - python>=3.8
 - Pandas
 - tqdm
