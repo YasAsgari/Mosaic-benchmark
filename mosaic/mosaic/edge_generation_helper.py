@@ -1,12 +1,10 @@
 """Module providing Function for step generating edges"""
 # Import necessary libraries
-import numpy as np          # Library for numerical computations
-import networkx as nx       # Library for creating and manipulating networks/graphs
-def simulate_poisson_process(
-    lmbda: float,
-    t_start: float,
-    t_end: float
-) -> list:
+import numpy as np  # Library for numerical computations
+import networkx as nx  # Library for creating and manipulating networks/graphs
+
+
+def simulate_poisson_process(lmbda: float, t_start: float, t_end: float) -> list:
     """
     Simulates a Poisson process with a given arrival rate (lambda) within a specified time interval.
 
@@ -37,7 +35,9 @@ def create_stable_backbone_inside(nodes: list, alpha: float) -> list:
     :param alpha: Density coefficient in the range [0.5, 1].
     :return: List of edges representing the stable backbone graph.
     """
-    assert alpha >= 0.5 and alpha <= 1, 'Error: Correct range for alpha is between 0.5 and 1'
+    assert (
+        alpha >= 0.5 and alpha <= 1
+    ), "Error: Correct range for alpha is between 0.5 and 1"
     v_c = len(nodes)  # Node size (refer to paper for explanation)
     p_in = (v_c - 1) ** (alpha - 1)  # Probability
     is_connected = False
@@ -51,7 +51,10 @@ def create_stable_backbone_inside(nodes: list, alpha: float) -> list:
     edges = [(nodes[u], nodes[v]) for (u, v) in graph.edges]
     return edges
 
-def create_stable_backbone_outside(nodes1: list, nodes2: list, alpha: float, beta: float)->list:
+
+def create_stable_backbone_outside(
+    nodes1: list, nodes2: list, alpha: float, beta: float
+) -> list:
     """
     Creates a stable bipartite graph backbone based on given parameters.
 
@@ -65,15 +68,15 @@ def create_stable_backbone_outside(nodes1: list, nodes2: list, alpha: float, bet
         list: List of edges in the created outside graph backbone.
     """
     # Check validity of alpha and beta values
-    assert 0.5 <= alpha <= 1, 'Error: Correct range for alpha is between 0.5 and 1'
-    assert 0 <= beta <= 1, 'Error: Correct range for beta is between 0 and 1'
+    assert 0.5 <= alpha <= 1, "Error: Correct range for alpha is between 0.5 and 1"
+    assert 0 <= beta <= 1, "Error: Correct range for beta is between 0 and 1"
 
     # Calculate number of nodes in each partition
     number_of_nodes1 = len(nodes1)
     number_of_nodes2 = len(nodes2)
 
-    #creating mapping for labels
-    label_mapping={i: label for i, label in enumerate(nodes1+nodes2)}
+    # creating mapping for labels
+    label_mapping = {i: label for i, label in enumerate(nodes1 + nodes2)}
     # Calculate the probability of an edge between partitions
     p_out = beta * (((number_of_nodes1 + number_of_nodes2) - 1) ** (alpha - 1))
 

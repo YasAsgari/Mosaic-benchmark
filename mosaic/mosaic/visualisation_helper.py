@@ -20,13 +20,20 @@ def visualize_mosaics(communities: dict[str, Mosaic], axis):
         height = 1
 
         for node in mosaic.nodes:
-            rect = Rectangle((mosaic.t_start, node - 0.5), width, height,
-                             fill=True, facecolor=colormap[comm], edgecolor='black', lw=1)
+            rect = Rectangle(
+                (mosaic.t_start, node - 0.5),
+                width,
+                height,
+                fill=True,
+                facecolor=colormap[comm],
+                edgecolor="black",
+                lw=1,
+            )
             axis.add_patch(rect)
-    axis.axvline(x=0, color='black')  # Draw a vertical line at x=0
+    axis.axvline(x=0, color="black")  # Draw a vertical line at x=0
     axis.invert_yaxis()
-    axis.set_aspect('equal')
-    axis.axis('off')
+    axis.set_aspect("equal")
+    axis.axis("off")
 
 
 def generate_random_color():

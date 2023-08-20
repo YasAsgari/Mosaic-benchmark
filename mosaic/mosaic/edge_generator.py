@@ -1,7 +1,12 @@
 """Module for generating edges"""
 # Import necessary functions and classes from modules
-from mosaic.edge_generation_helper import create_stable_backbone_outside,simulate_poisson_process,create_stable_backbone_inside
+from mosaic.edge_generation_helper import (
+    create_stable_backbone_outside,
+    simulate_poisson_process,
+    create_stable_backbone_inside,
+)
 from mosaic.mosaic_community import Mosaic
+
 
 # Define a function to find the intersection time interval between two mosaics
 def time_intersection(mosaic1: Mosaic, mosaic2: Mosaic):
@@ -26,7 +31,9 @@ def time_intersection(mosaic1: Mosaic, mosaic2: Mosaic):
 
 
 # Define a function for generating temporal edges between communities across mosaics
-def outside_temporal_edges(mosaic1: Mosaic, mosaic2: Mosaic, alpha: float, beta: float, lambda_out: float):
+def outside_temporal_edges(
+    mosaic1: Mosaic, mosaic2: Mosaic, alpha: float, beta: float, lambda_out: float
+):
     """
     Generates temporal edges connecting communities across two mosaics
     Args:
@@ -44,9 +51,15 @@ def outside_temporal_edges(mosaic1: Mosaic, mosaic2: Mosaic, alpha: float, beta:
     start, end = time_intersection(mosaic1, mosaic2)
     # Generate edges if there is a non-zero intersection interval
     if end != start:
-        edges = create_stable_backbone_outside(mosaic1.nodes, mosaic2.nodes, alpha, beta)
+        edges = create_stable_backbone_outside(
+            mosaic1.nodes, mosaic2.nodes, alpha, beta
+        )
         # Generate temporal edges using Poisson process and extend the edge stream
-        stream=[(u, v, t) for (u, v) in edges for t in simulate_poisson_process(lambda_out, start, end)]
+        stream = [
+            (u, v, t)
+            for (u, v) in edges
+            for t in simulate_poisson_process(lambda_out, start, end)
+        ]
     return stream
 
 
@@ -66,5 +79,9 @@ def inside_temporal_edges(mosaic: Mosaic, alpha: float, lambda_in: float):
     # Generate stable backbone edges within the community
     edges = create_stable_backbone_inside(mosaic.nodes, alpha)
     # Generate temporal edges using Poisson process and extend the edge stream
-    stream=[(u, v, t) for (u, v) in edges for t in simulate_poisson_process(lambda_in, mosaic.t_start, mosaic.t_end)]
+    stream = [
+        (u, v, t)
+        for (u, v) in edges
+        for t in simulate_poisson_process(lambda_in, mosaic.t_start, mosaic.t_end)
+    ]
     return stream

@@ -7,9 +7,11 @@ from mosaic.mosaic_community import Mosaic
 from mosaic.edge_generator import outside_temporal_edges, inside_temporal_edges
 from mosaic.visualisation_helper import visualize_mosaics
 
+
 # Define a class for managing a modular link stream
 class ModularLinkStream:
     """Class to create the linkstream"""
+
     def __init__(self, number_of_nodes: int, t_start: float, t_end: float):
         """
         Initialize the ModularLinkStream class.
@@ -20,8 +22,8 @@ class ModularLinkStream:
         - t_end: Ending time of the link stream.
         """
         # Validate input parameters
-        assert t_start >= 0, 'Starting time should be non-negative'
-        assert t_end > t_start, 'Ending time should be greater than starting time'
+        assert t_start >= 0, "Starting time should be non-negative"
+        assert t_end > t_start, "Ending time should be greater than starting time"
 
         # Initialize attributes
         self.t_start = t_start
@@ -41,8 +43,9 @@ class ModularLinkStream:
         - t_end: Ending time of the community.
         """
         self.number_of_communities += 1
-        self.communities[f'c{self.number_of_communities}'] = Mosaic(
-            nodes, t_start, t_end)
+        self.communities[f"c{self.number_of_communities}"] = Mosaic(
+            nodes, t_start, t_end
+        )
 
     def remove_community(self, label: str):
         """
@@ -55,9 +58,11 @@ class ModularLinkStream:
             self.number_of_communities -= 1
             self.communities.pop(label, None)
         else:
-            raise ValueError('Label is not present')
+            raise ValueError("Label is not present")
 
-    def generate_edges(self, alpha: float, beta: float, lambda_in: float, lambda_out: float):
+    def generate_edges(
+        self, alpha: float, beta: float, lambda_in: float, lambda_out: float
+    ):
         """
         Generate temporal edges between communities and within communities.
 
@@ -71,13 +76,13 @@ class ModularLinkStream:
 
         # Generate edges between different communities
         for mosaic1, mosaic2 in itertools.combinations(self.communities.values(), 2):
-            self.temporal_edges.extend(outside_temporal_edges(
-                mosaic1, mosaic2, alpha, beta, lambda_out))
+            self.temporal_edges.extend(
+                outside_temporal_edges(mosaic1, mosaic2, alpha, beta, lambda_out)
+            )
 
         # Generate edges within each community
         for mosaic in self.communities.values():
-            self.temporal_edges.extend(
-                inside_temporal_edges(mosaic, alpha, lambda_in))
+            self.temporal_edges.extend(inside_temporal_edges(mosaic, alpha, lambda_in))
 
     def clear_edges(self):
         """Clear the list of temporal edges."""
@@ -92,11 +97,12 @@ class ModularLinkStream:
         """
         # Convert temporal edges to DataFrame and export as CSV
         edge_stream_dataframe = pd.DataFrame(
-            self.temporal_edges, columns=['node1', 'node2', 'time'])
-        edge_stream_dataframe.to_csv(address + '-edges.csv', index=False)
+            self.temporal_edges, columns=["node1", "node2", "time"]
+        )
+        edge_stream_dataframe.to_csv(address + "-edges.csv", index=False)
 
         # Export communities as a NumPy array
-        np.save(address + '-communities.npy', self.communities)
+        np.save(address + "-communities.npy", self.communities)
 
     def plot(self, axis=None):
         """
@@ -107,4 +113,5 @@ class ModularLinkStream:
         """
         if axis is None:
             _, axis = plt.subplots(nrows=1, ncols=1, figsize=(8, 6), dpi=200)
+        # %%
         visualize_mosaics(self.communities, axis)
