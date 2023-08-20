@@ -24,4 +24,9 @@ class Mosaic:
         self.nodes = nodes
         self.t_start = t_start
         self.t_end = t_end
+
+    def __repr__(self):
+        return f'Nodes: {str(self.nodes)} Time:({self.t_start},{self.t_end})'
+    def __call__(self):
+        return f'Nodes: {str(self.nodes)} Time:({self.t_start},{self.t_end})'
         

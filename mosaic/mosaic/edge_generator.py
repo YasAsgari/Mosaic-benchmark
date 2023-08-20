@@ -44,7 +44,7 @@ def outside_temporal_edges(mosaic1: Mosaic, mosaic2: Mosaic, alpha: float, beta:
     start, end = time_intersection(mosaic1, mosaic2)
     # Generate edges if there is a non-zero intersection interval
     if end != start:
-        edges = create_stable_backbone_outside(mosaic1, mosaic2, alpha, beta)
+        edges = create_stable_backbone_outside(mosaic1.nodes, mosaic2.nodes, alpha, beta)
         # Generate temporal edges using Poisson process and extend the edge stream
         stream=[(u, v, t) for (u, v) in edges for t in simulate_poisson_process(lambda_out, start, end)]
     return stream
