@@ -3,10 +3,13 @@ import itertools            # Library for efficient looping and iteration
 import numpy as np          # Library for numerical computations
 import pandas as pd         # Library for data manipulation and analysis
 from matplotlib import pyplot as plt  # Library for creating visualizations
-from matplotlib.patches import Rectangle  # Library for drawing rectangles in plots
-import seaborn as sns      # Library for creating informative and attractive statistical graphics
+# Library for drawing rectangles in plots
+from matplotlib.patches import Rectangle
+# Library for creating informative and attractive statistical graphics
+import seaborn as sns
 from tqdm import tqdm       # Library for adding progress bars to loops
 import networkx as nx       # Library for creating and manipulating networks/graphs
+
 
 def simulate_poisson_process(
     lmbda: float,
@@ -28,10 +31,34 @@ def simulate_poisson_process(
 
     # Generate random arrival times for the events within the specified time interval
     arrival_times = np.random.uniform(t_start, t_end, k)
-
     # If no arrival times were generated, create a single random arrival time
     if len(arrival_times) == 0:
         arrival_times = np.array([np.random.uniform(t_start, t_end)])
-
     # Round the arrival times to two decimal places for cleaner output
     return list(arrival_times.round(2))
+
+
+def create_stable_backbone_inside(nodes: list, alpha: float) -> list:
+    """
+    Create a stable backbone graph from a list of nodes using the Erdős-Rényi model.
+
+    :param nodes: List of nodes to create the backbone from.
+    :param alpha: Density coefficient in the range [0.5, 1].
+    :return: List of edges representing the stable backbone graph.
+    """
+    assert alpha >= 0.5 and alpha <= 1, 'Error: Correct range for alpha is between 0.5 and 1'
+    v_c = len(nodes)  # Node size (refer to paper for explanation)
+    p_in = (v_c - 1) ** (alpha - 1)  # Probability
+    is_connected = False
+    while not is_connected:
+        # Generate an Erdős-Rényi graph which should be connected because of community's definition
+        graph = nx.erdos_renyi_graph(v_c, p_in)
+        if nx.is_connected(graph):
+            is_connected = True
+    graph.remove_edges_from(nx.selfloop_edges(graph))
+    # Convert the graph's edges to a list of edges
+    edges = [(nodes[u], nodes[v]) for (u, v) in graph.edges]
+    return edges
+
+
+print(create_stable_backbone_inside([0, 1, 2, 3], 1))
