@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mosaic"
-version = "0.1.0"
+version = "0.0.1"
 description = ""
 authors = ["Yasaman Asgari <50579308+YasAsgari@users.noreply.github.com>"]
 readme = "README.md"
