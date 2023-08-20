@@ -17,7 +17,6 @@ class ModularLinkStream:
         - number_of_nodes: Total number of nodes in the network.
         - t_start: Starting time of the link stream.
         - t_end: Ending time of the link stream.
-        - scenario_description: Description of the scenario (optional).
         """
         # Validate input parameters
         assert t_start >= 0, 'Starting time should be non-negative'
