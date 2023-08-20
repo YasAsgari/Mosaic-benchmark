@@ -8,42 +8,6 @@ However, evaluating the performance of these algorithms remains a challenge. A w
 ``Mosaic`` is a meta-library for creating modular link streams for testing dynamic community detection algorithms in complex temporal networks: it creates communities, visualises them and exports the network to csv files.
 
 
-================ =================== ==================  ==========  ===============
-   **Date**      **Python Versions**   **Main Author**   **GitHub**      **pypl**
-|date|                 3.8-3.9       `Yasaman Asgari`_  `Source`_   `Distribution`_
-================ =================== ==================  ==========  ===============
-
-^^^^^^^^^^^^^^
-CDlib Dev Team
-^^^^^^^^^^^^^^
-
-======================= ============================
-**Name**                **Contribution**
-`Giulio Rossetti`_      Library Design/Documentation
-`Letizia Milli`_        Community Models Integration
-`Rémy Cazabet`_         Visualization
-`Salvatore Citraro`_    Community Models Integration
-======================= ============================
-
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-
-   overview.rst
-   installing.rst
-   tutorial.rst
-   reference/reference.rst
-   bibliography.rst
-
-
-.. _`Giulio Rossetti`: http://www.about.giuliorossetti.net
-.. _`Letizia Milli`: https://github.com/letiziam
-.. _`Salvatore Citraro`: https://github.com/dsalvaz
-.. _`Rémy Cazabet`: http://cazabetremy.fr
-.. _`Source`: https://github.com/GiulioRossetti/CDlib
-.. _`Distribution`: https://pypi.python.org/pypi/CDlib
-.. _`SoBigData++`: https://sobigdata.d4science.org/group/sobigdata-gateway/explore?siteId=20371853
 ## Citation
 If you use our algorithm, please cite the following works:
 
@@ -51,7 +15,7 @@ If you use our algorithm, please cite the following works:
 > Paper
 ## Installation
 
-To install the package download (or clone) the current project and copy the demon folder in the root of your application.
+To install the package, download (or clone) the current project and copy the demon folder in the root of your application.
 
 Alternatively, use pip:
 ```bash
@@ -60,7 +24,7 @@ sudo pip install mosaic
 
 # Execution
 
-The algorithm can be used as a standalone program as well as integrated into Python scripts.
+The algorithm can be used as a standalone program and integrated into Python scripts.
 
 **Link stream parameters**
 
@@ -71,20 +35,20 @@ starting_time |Float | Starting time for link stream's time domain| 0
 ending_time | Float |Ending time for link stream's time domain | -
 
 
-**Optional arguments**
+**Community parameters**
 
-Flag | Extended Name  |  Type | Description | Default 
--------------  | ------------- |------------- | ------------- | -------------
--d | --avg_degree | Integer | Average node degree | 15
--s | --sigma | Float | Percentage of node's edges within a community | .7
--l | --lbd | Float | Lambda community size distribution | 1
--a | --alpha | Float |Alpha degree distribution | 3
--p | --prob_action | Float |Probability of node action | 1
--r | --prob_renewal | Float |Probability of edge renewal | .8
--q | --quality_threshold | Float | Conductance quality threshold | .3
--n | --new_nodes | Float |Probability of node appearance | 0
--j | --delete_nodes | Float |Probability of node vanishing | 0
--e | --max_events | Integer |Max number of community events for stable iteration | 1
+Name  |  Type | Description | Default 
+-------------  | ------------- |------------- | -------------
+nodes | List | list of Integer indices inside a community | -
+starting_time |Float | Starting time for commuity| -
+ending_time | Float |Ending time for community | -
+
+**Scenario parameters**
+
+Name  |  Type | Description | Default 
+-------------  | ------------- |------------- | -------------
+$\alpha$ | Float | [0.5,1): defines the internal density coefficient | -
+$\beta$ |Float | [0,1]: related to community identifialbility  -
 
 All parameters have a default value.
 In order to generate a dynamic graph of 1000 nodes for 1000 iterations applying the simplified version of the algorithm just use:
