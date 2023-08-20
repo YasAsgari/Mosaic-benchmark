@@ -60,5 +60,35 @@ def create_stable_backbone_inside(nodes: list, alpha: float) -> list:
     edges = [(nodes[u], nodes[v]) for (u, v) in graph.edges]
     return edges
 
+def create_stable_backbone_outside(nodes1: list, nodes2: list, alpha: float, beta: float)->list:
+    """
+    Creates a stable bipartite graph backbone based on given parameters.
 
-print(create_stable_backbone_inside([0, 1, 2, 3], 1))
+    Args:
+        nodes1 (list): List of nodes in the first partition.
+        nodes2 (list): List of nodes in the second partition.
+        alpha (float): Density coefficient between 0.5 and 1.
+        beta (float): Community identifiability coefficient between 0 and 1.
+
+    Returns:
+        list: List of edges in the created outside graph backbone.
+    """
+    # Check validity of alpha and beta values
+    assert 0.5 <= alpha <= 1, 'Error: Correct range for alpha is between 0.5 and 1'
+    assert 0 <= beta <= 1, 'Error: Correct range for beta is between 0 and 1'
+
+    # Calculate number of nodes in each partition
+    number_of_nodes1 = len(nodes1)
+    number_of_nodes2 = len(nodes2)
+
+    #creating mapping for labels
+    label_mapping={i: label for i, label in enumerate(nodes1+nodes2)}
+    # Calculate the probability of an edge between partitions
+    p_out = beta * (((number_of_nodes1 + number_of_nodes2) - 1) ** (alpha - 1))
+
+    # Generate a bipartite graph with specified parameters
+    graph = nx.bipartite.random_graph(number_of_nodes1, number_of_nodes2, p_out)
+    # Convert graph edges to a list of node pairs
+    edge_list = [(label_mapping[u], label_mapping[v]) for u, v in graph.edges]
+
+    return edge_list
