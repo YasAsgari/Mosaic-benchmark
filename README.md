@@ -49,38 +49,13 @@ Name  |  Type | Description
 -------------  | ------------- |-------------
 $\alpha$ | Float | [0.5,1): defines the internal density coefficient 
 $\beta$ |Float | [0,1]: related to community identifialbility  
-
-All parameters have a default value.
-In order to generate a dynamic graph of 1000 nodes for 1000 iterations applying the simplified version of the algorithm just use:
-
-```bash
-python rdyn 1000 1000 True
-```
-
-## As python library
-
-RDyn can be also executed within a python program.
-In order to generate a dynamic network with the default parameter values just use the following snippet
-
-```python
-from rdyn import RDyn
-rdb = RDyn()
-rdb.execute(simplified=True)
-```
-
-To custumize the execution specify the usual parameters during object instantiation.
+$\eta$|Float|[0,1]: rewiring noise probability
 
 # Output
 
-RDyn generates a folder named ``results`` and, for each specific model configuration a subfolder having the following naming convention:
- - ``nodes_iterations_avgDegree_sigma_renewal_qualityThreshold_maxEvts`` 
- - Example (default parameters): ``results/1000_1000_15_0.7_0.8_0.3_1``
-
-Within such folder the following files are generated:
- - ``graph-*.txt``: Edgelist representation of the generated graph. One file for stable iteration.
+Mosaic Benchmark can export two different types of files.
+ - ``graph-*.txt``: Edgelist representation of the generated graph. One line for each edge in link stream.
  - ``communities-*.txt``: community description. One file for stable iteration.
- - ``events.txt``: summary of merge\split action per stable iteration.
- - ``interaction.txt``: dynamic graph description as edge stream.
  
 The syntax of each class of output files is the following:
 
@@ -88,42 +63,23 @@ The syntax of each class of output files is the following:
 
 A community per line descibed as:
 ```bash
-community_id	[node1, node2, node3, ..., nodeN]
+community_id	[node1, node2, node3, ..., nodeN] stating_time  ending_time
 ```
 
-**Events**
-
-An block of events per stable iteration descibed as:
-
-```bash
-iteration_id:
- 	Event1
- 	Event2
- 	...
- 	EventN
-```
-
-Where the available events are:
- - ``START``, used for the first stable iteration
- - ``SPLIT id_origina_community [id_new_com1, id_new_com2]``
- - ``MERGE [id_old_com1, id_old_com2]`` the new com will inherit ``id_old_com_1``
- 
 **Interactions**
  
-One interaction per line with the syntax:
+One edge per line with the syntax:
 
-``iteration_id	interaction_seq	operation	node1	node2``
+``	time	node1	node2``
 
 Where:
- - ``iteration_id`` identify the iteration in which the interaction occurs
- - ``interaction_seq`` describe an absolute ordering among all the interactions
- - ``operation`` define if the interaction produces a new edge ``+`` or destroy an existing one ``-``
- - ``node1`` and ``node2`` are interaction endpoints
+ - ``time`` identify the time in which the interaction occurs
+- ``node1`` and ``node2`` are interaction endpoints
   
 Example:
 ```bash
-123	5361	+	385	390
-123	5362	-	385	379
+1.5	2	4
+3	4	8
 ```
 
 # Dependencies
