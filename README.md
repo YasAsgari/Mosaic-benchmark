@@ -54,7 +54,7 @@ $\eta$|Float|[0,1]: rewiring noise probability
 # Output
 
 Mosaic Benchmark can export two different types of files.
- - ``graph-*.txt``: Edgelist representation of the generated graph. One line for each edge in link stream.
+ - ``graph-*.csv``: Edgelist representation of the generated graph. One line for each edge in link stream.
  - ``communities-*.txt``: community description. One file for stable iteration.
  
 The syntax of each class of output files is the following:
@@ -85,9 +85,9 @@ Example:
 # Dependencies
 
 RDyn is written in Python and requires the following package to run:
-- python>=2.7.11
-- networkx==1.11
-- numpy==1.11.1
+- python>=3.8
+- Pandas
 - tqdm
-- six
-- future
+- Numpy
+- Matplotlib
+- itertools
