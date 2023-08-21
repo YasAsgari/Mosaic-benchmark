@@ -24,24 +24,18 @@ def divide_interval(t_start: float, t_end: float, number_of_slices: int) -> list
 
     # Calculate the length of the entire interval
     interval_length = t_end - t_start
-    
     # Calculate the length of each individual slice
     slice_length = interval_length / number_of_slices
-    
     # Initialize a list to store the resulting intervals
     intervals = []
-    
     # Iterate through each slice and determine its start and end points
     for i in range(number_of_slices):
         start = t_start + i * slice_length
-        
         # Calculate the end point of the current slice
         # For all but the last slice, it's the start point plus the slice length
         # For the last slice, it's the same as the overall interval's end point
         end = start + slice_length if i < number_of_slices - 1 else t_end
-        
         # Add the interval to the list of intervals
         intervals.append((start, end))
-    
     # Return the list of divided intervals
     return intervals
