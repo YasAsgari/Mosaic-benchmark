@@ -4,6 +4,10 @@ version = "0.0.1"
 description = "A package to create modular link streams used for testing dynamic community detection algoritms"
 authors = ["Yasaman Asgari yasasgary@gmail.com"]
 readme = "README.md"
+license="MIT"
+homepage="https://github.com/YasAsgari/Mosaic-benchmark"
+repository="https://github.com/YasAsgari/Mosaic-benchmark"
+keywords=["Temporal networks", "community detection", "Graphs","Complex networks"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
