@@ -1,5 +1,6 @@
 """The unifier of all codes in the library"""
 import itertools
+import random
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -115,3 +116,58 @@ class ModularLinkStream:
             _, axis = plt.subplots(nrows=1, ncols=1, figsize=(8, 6), dpi=200)
         # %%
         visualize_mosaics(self.communities, axis)
+
+    def empty_mosaics(M, gamma: float):
+        """
+        Empties communities in M with a given probability gamma.
+
+        Args:
+            M (Mosaics): The Mosaics object containing communities.
+            gamma (float): Probability of emptying a community (0 <= gamma <= 1).
+
+        Raises:
+            AssertionError: If gamma is not within the valid range [0, 1].
+
+        Returns:
+            None
+        """
+        assert 0 <= gamma <= 1, "Gamma must be a probability in the range [0, 1]."
+
+        communities_to_remove = []
+
+        for comm in M.communities:
+            if random.random() < gamma:
+                communities_to_remove.append(comm)
+
+        for comm in communities_to_remove:
+            M.communities.pop(comm, None)
+            print(f'Community {comm} has been emptied!')
+
+    def clear_communities(self):
+        """
+        Clears all communities in the object and resets the community count.
+
+        Args:
+            self: The instance of the object.
+
+        Returns:
+            None
+        """
+        self.communities = {}             # Clear the communities dictionary
+        self.number_of_communities = 0    # Reset the count of communities
+
+    def random_scenario_generator(self):
+        pass
+
+
+    def snap_shot_scenario(self, number_of_slices: int, fixed: bool =True ):
+        if fixed:
+            time_domain= self.t_end-self.t_start
+            window_size= time_domain/number_of_slices
+            times=[]
+        else:
+            times=[]
+        communities_to_add={}
+        self.communities.update(communities_to_add)
+        print(f'{len(communities_to_add)} communities added!')
+
