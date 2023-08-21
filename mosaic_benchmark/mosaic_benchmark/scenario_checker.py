@@ -48,9 +48,10 @@ def check_overlapping_communities(mosaic1: Mosaic, mosaic2: Mosaic) -> bool:
     """
     # Check if the time intervals of the mosaics overlap
     if mosaic1.t_end >= mosaic2.t_start and mosaic1.t_start <= mosaic2.t_end:
+        print('condition here suspicison')
         # Check if any nodes from mosaic1 are also present in mosaic2
-        return any(node in mosaic2.nodes for node in mosaic1.nodes)
-    
+        return not any(node in mosaic2.nodes for node in mosaic1.nodes)
+    print('Not overlapping')
     return False
 
 def check_overlapping_scenario(existing_communities: dict[str, Mosaic], mosaic_to_add: Mosaic) -> bool:
@@ -70,4 +71,4 @@ def check_overlapping_scenario(existing_communities: dict[str, Mosaic], mosaic_t
     """
     # Iterate through each existing community's mosaic and check for overlapping scenarios with 'mosaic_to_add'.
     # Returns True only if all existing community scenarios do not overlap with the provided mosaic.
-    return all(check_overlapping_communities(comm, mosaic_to_add) for comm in existing_communities.values())
+    return not all(check_overlapping_communities(comm, mosaic_to_add) for comm in existing_communities.values())
