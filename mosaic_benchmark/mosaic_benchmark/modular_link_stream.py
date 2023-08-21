@@ -11,7 +11,7 @@ from mosaic_benchmark.scenario_checker import (check_nodes_validity,
                                                check_overlapping_communities,
                                                  check_time_validity,
                                                  check_overlapping_scenario)
-
+from mosaic_benchmark.snapshot_scenario_helper import divide_interval_equal
 # Define a class for managing a modular link stream
 class ModularLinkStream:
     """Class to create the linkstream"""
@@ -204,11 +204,9 @@ class ModularLinkStream:
 
     def snap_shot_scenario(self, number_of_slices: int, fixed: bool =True ):
         if fixed:
-            time_domain= self.t_end-self.t_start
-            window_size= time_domain/number_of_slices
-            times=[]
+            intervals=divide_interval_equal(self.t_start, self.t_end, number_of_slices)
         else:
-            times=[]
+            intervals=[]
         communities_to_add={}
         self.communities.update(communities_to_add)
         print(f'{len(communities_to_add)} communities added!')
