@@ -181,26 +181,20 @@ class ModularLinkStream:
         """
         # Validate the range of eta
         assert 0 <= eta <= 1, "Eta must be a probability in the range [0, 1]."
-        
         # Determine indices of edges to be rewired based on eta
         selected = np.where(np.random.uniform(size=len(self.temporal_edges)) <= eta)[0]
-        
         # Iterate through selected edges and apply rewiring
         for i in selected:
             # Generate a new time for the rewired edge
             new_time = np.random.uniform(self.t_start, self.t_end)
-            
             # Generate distinct nodes for rewiring
             random_edge = tuple(random.sample(self.nodes, 2))
             while random_edge[0] == random_edge[1]:
                 random_edge = tuple(random.sample(self.nodes, 2))
-            
             # Assign nodes for rewiring
             node1, node2 = random_edge
-            
             # Apply rewiring by updating temporal_edges
             self.temporal_edges[i] = [node1, node2, new_time]
-        
         # Print the number of edges rewired
         print(f'{len(selected)} edges rewired!')
     
