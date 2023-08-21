@@ -7,7 +7,10 @@ import matplotlib.pyplot as plt
 from mosaic_benchmark.mosaic_community import Mosaic
 from mosaic_benchmark.edge_generator import outside_temporal_edges, inside_temporal_edges
 from mosaic_benchmark.visualisation_helper import visualize_mosaics
-
+from mosaic_benchmark.scenario_checker import (check_nodes_validity, 
+                                               check_overlapping_communities,
+                                                 check_time_validity,
+                                                 check_overlapping_scenario)
 
 # Define a class for managing a modular link stream
 class ModularLinkStream:
@@ -33,6 +36,7 @@ class ModularLinkStream:
         self.number_of_communities = 0
         self.communities = {}
         self.temporal_edges = []
+        self.nodes=list(range(self.number_of_nodes))
 
     def add_community(self, nodes: list, t_start: float, t_end: float):
         """
@@ -43,10 +47,24 @@ class ModularLinkStream:
         - t_start: Starting time of the community.
         - t_end: Ending time of the community.
         """
+        # Create a new Mosaic object representing the community to be added
+        new_mosaic = Mosaic(nodes, t_start, t_end)
+
+        # Check if the provided nodes are within the valid range of node IDs
+        if not check_nodes_validity(nodes, self.number_of_nodes):
+            raise ValueError("Nodes are not in range")
+        
+        # Check if the provided time range is within the valid overall time range
+        if not check_time_validity(t_start, t_end, self.t_start, self.t_end):
+            raise ValueError("Time is not in range")
+
+        # Check if the new community overlaps with existing communities
+        if check_overlapping_scenario(self.communities, new_mosaic):
+            raise ValueError('Communities are overlapping; cannot add')
+
+        # Increment the count of communities and add the new community to the dictionary
         self.number_of_communities += 1
-        self.communities[f"c{self.number_of_communities}"] = Mosaic(
-            nodes, t_start, t_end
-        )
+        self.communities[f"c{self.number_of_communities}"] = new_mosaic
 
     def remove_community(self, label: str):
         """
@@ -114,15 +132,13 @@ class ModularLinkStream:
         """
         if axis is None:
             _, axis = plt.subplots(nrows=1, ncols=1, figsize=(8, 6), dpi=200)
-        # %%
         visualize_mosaics(self.communities, axis)
 
-    def empty_mosaics(M, gamma: float):
+    def empty_mosaics(self, gamma: float):
         """
         Empties communities in M with a given probability gamma.
 
         Args:
-            M (Mosaics): The Mosaics object containing communities.
             gamma (float): Probability of emptying a community (0 <= gamma <= 1).
 
         Raises:
@@ -135,12 +151,12 @@ class ModularLinkStream:
 
         communities_to_remove = []
 
-        for comm in M.communities:
+        for comm in self.communities:
             if random.random() < gamma:
                 communities_to_remove.append(comm)
 
         for comm in communities_to_remove:
-            M.communities.pop(comm, None)
+            self.communities.pop(comm, None)
             print(f'Community {comm} has been emptied!')
 
     def clear_communities(self):
@@ -153,9 +169,16 @@ class ModularLinkStream:
         Returns:
             None
         """
-        self.communities = {}             # Clear the communities dictionary
+        self.communities.clear()             # Clear the communities dictionary
         self.number_of_communities = 0    # Reset the count of communities
 
+    
+
+    def rewiring_noise(self, eta:float):
+        assert 0 <= eta <= 1, "Eta must be a probability in the range [0, 1]."
+
+
+    
     def random_scenario_generator(self):
         pass
 
