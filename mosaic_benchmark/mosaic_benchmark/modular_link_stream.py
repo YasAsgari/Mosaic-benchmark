@@ -52,16 +52,13 @@ class ModularLinkStream:
 
         # Check if the provided nodes are within the valid range of node IDs
         if not check_nodes_validity(nodes, self.number_of_nodes):
-            raise ValueError("Nodes are not in range")
-        
+            raise ValueError("Nodes are not in range")        
         # Check if the provided time range is within the valid overall time range
         if not check_time_validity(t_start, t_end, self.t_start, self.t_end):
             raise ValueError("Time is not in range")
-
         # Check if the new community overlaps with existing communities
         if check_overlapping_scenario(self.communities, new_mosaic):
             raise ValueError('Communities are overlapping; cannot add')
-
         # Increment the count of communities and add the new community to the dictionary
         self.number_of_communities += 1
         self.communities[f"c{self.number_of_communities}"] = new_mosaic
@@ -172,12 +169,40 @@ class ModularLinkStream:
         self.communities.clear()             # Clear the communities dictionary
         self.number_of_communities = 0    # Reset the count of communities
 
-    
+    def rewiring_noise(self, eta: float):
+        """
+        Rewire temporal edges in the network with a given probability.
 
-    def rewiring_noise(self, eta:float):
+        Args:
+            eta (float): The probability of rewiring an edge, within the range [0, 1].
+
+        Returns:
+            None
+        """
+        # Validate the range of eta
         assert 0 <= eta <= 1, "Eta must be a probability in the range [0, 1]."
-
-
+        
+        # Determine indices of edges to be rewired based on eta
+        selected = np.where(np.random.uniform(size=len(self.temporal_edges)) <= eta)[0]
+        
+        # Iterate through selected edges and apply rewiring
+        for i in selected:
+            # Generate a new time for the rewired edge
+            new_time = np.random.uniform(self.t_start, self.t_end)
+            
+            # Generate distinct nodes for rewiring
+            random_edge = tuple(random.sample(self.nodes, 2))
+            while random_edge[0] == random_edge[1]:
+                random_edge = tuple(random.sample(self.nodes, 2))
+            
+            # Assign nodes for rewiring
+            node1, node2 = random_edge
+            
+            # Apply rewiring by updating temporal_edges
+            self.temporal_edges[i] = [node1, node2, new_time]
+        
+        # Print the number of edges rewired
+        print(f'{len(selected)} edges rewired!')
     
     def random_scenario_generator(self):
         pass
