@@ -16,9 +16,3 @@ python = "^3.10"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[[tool.poetry.source]]
-name = "pypi-private"
-url = "https://username@password:pypi-private.com/simple/"
-default = false
-secondary = true
