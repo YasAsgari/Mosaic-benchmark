@@ -1,0 +1,8 @@
+site_name: mosaic-benchmark
+sit_url: https://github.com/YasAsgari/Mosaic-benchmark
+nav: 
+-Home: index.md
+-Userguide: userguide.md
+-API: api_reference.md
+
+theme: readthedocs
