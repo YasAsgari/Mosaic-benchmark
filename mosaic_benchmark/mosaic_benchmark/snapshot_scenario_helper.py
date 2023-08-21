@@ -1,4 +1,5 @@
 """Helper for snapshot scenario generation"""
+import random
 import numpy as np
 def divide_interval_equal(t_start: float, t_end: float, number_of_slices: int) -> list[tuple[float, float]]:
     """
@@ -60,3 +61,61 @@ def divide_interval_varying(t_start: float, t_end: float, number_of_slices: int)
         intervals.append((start, end))  
     intervals.append((middle_points[-1], t_end))  # Last subinterval
     return intervals
+
+def divide_interval(t_start: float, t_end: float, number_of_slices: int, fixed: bool = True) -> list[tuple[float, float]]:
+    """
+    Divides the given interval [t_start, t_end] into a specified number of slices, generating sub-intervals.
+
+    Args:
+        t_start (float): The start value of the interval.
+        t_end (float): The end value of the interval.
+        number_of_slices (int): The desired number of sub-intervals.
+        fixed (bool, optional): If True, divides the interval into equal sub-intervals using divide_interval_equal(),
+                               otherwise uses divide_interval_varying(). Defaults to True.
+
+    Returns:
+        list[tuple[float, float]]: A list of tuples representing the generated sub-intervals.
+
+    Note:
+        This function delegates the division process to either divide_interval_equal() or divide_interval_varying()
+        based on the 'fixed' parameter value.
+    """
+    if fixed:
+        intervals = divide_interval_equal(t_start, t_end, number_of_slices)
+    else:
+        intervals = divide_interval_varying(t_start, t_end, number_of_slices)
+    return intervals
+
+def divide_nodes(number_of_nodes: int) -> list:
+    """
+    Generates random partitions of a range of nodes.
+
+    Args:
+        number_of_nodes (int): The total number of nodes to be partitioned.
+
+    Returns:
+        list: A list of partitions, where each partition is represented as a list of node indices.
+    """
+
+    # Ensure that the input is valid
+    assert number_of_nodes > 0, "Number of nodes should be positive"
+    
+    # Initialize the list with the starting index of the first partition
+    partition_indices = [0]
+
+    # Generate partition indices
+    while partition_indices[-1] < number_of_nodes - 1:
+        if partition_indices[-1] < number_of_nodes - 3:
+            # Generate a random ending index for the partition within a certain range
+            last_index = random.randint(partition_indices[-1] + 2, number_of_nodes)       
+            # Adjust the last index if it exceeds the total number of nodes
+            if last_index > number_of_nodes - 2:
+                last_index = number_of_nodes
+        else:
+            # For the last partition, cover the remaining nodes
+            last_index = number_of_nodes 
+        # Add the generated partition index to the list
+        partition_indices.append(last_index)
+    # Create partitions based on the generated indices
+    partitions = [list(range(partition_indices[i], partition_indices[i + 1])) for i in range(len(partition_indices) - 1)]
+    return partitions

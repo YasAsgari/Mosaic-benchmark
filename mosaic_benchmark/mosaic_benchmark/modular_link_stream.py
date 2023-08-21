@@ -11,7 +11,7 @@ from mosaic_benchmark.scenario_checker import (check_nodes_validity,
                                                check_overlapping_communities,
                                                  check_time_validity,
                                                  check_overlapping_scenario)
-from mosaic_benchmark.snapshot_scenario_helper import divide_interval_equal
+from mosaic_benchmark.snapshot_scenario_helper import divide_interval, divide_nodes
 # Define a class for managing a modular link stream
 class ModularLinkStream:
     """Class to create the linkstream"""
@@ -200,14 +200,26 @@ class ModularLinkStream:
     
     def random_scenario_generator(self):
         pass
+    def snap_shot_scenario(self, number_of_slices: int, fixed: bool = True):
+        """
+        Generate a scenario by partitioning time intervals and nodes into communities.
 
+        Args:
+            number_of_slices (int): The number of time intervals to divide the scenario into.
+            fixed (bool, optional): If True, evenly divides time intervals; if False, varies interval length. Default is True.
 
-    def snap_shot_scenario(self, number_of_slices: int, fixed: bool =True ):
-        if fixed:
-            intervals=divide_interval_equal(self.t_start, self.t_end, number_of_slices)
-        else:
-            intervals=[]
-        communities_to_add={}
-        self.communities.update(communities_to_add)
-        print(f'{len(communities_to_add)} communities added!')
+        Returns:
+            None
+        """
+        # Divide time interval based on specified number of slices and fixed interval option
+        intervals = divide_interval(self.t_start, self.t_end, number_of_slices, fixed)
 
+        # Iterate over generated time intervals
+        for (start, end) in intervals:
+            # Divide available nodes into partitions
+            partitions = divide_nodes(self.number_of_nodes)
+            
+            # Iterate over node partitions
+            for nodes in partitions:
+                # Add a community using the partitioned nodes, within the current time interval
+                self.add_community(nodes, start, end)
