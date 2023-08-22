@@ -8,7 +8,6 @@ from mosaic_benchmark.mosaic_community import Mosaic
 from mosaic_benchmark.edge_generator import outside_temporal_edges, inside_temporal_edges
 from mosaic_benchmark.visualisation_helper import visualize_mosaics
 from mosaic_benchmark.scenario_checker import (check_nodes_validity, 
-                                               check_overlapping_communities,
                                                  check_time_validity,
                                                  check_overlapping_scenario)
 from mosaic_benchmark.snapshot_scenario_helper import divide_interval, divide_nodes
@@ -49,7 +48,6 @@ class ModularLinkStream:
         """
         # Create a new Mosaic object representing the community to be added
         new_mosaic = Mosaic(nodes, t_start, t_end)
-
         # Check if the provided nodes are within the valid range of node IDs
         if not check_nodes_validity(nodes, self.number_of_nodes):
             raise ValueError("Nodes are not in range")        
@@ -196,14 +194,15 @@ class ModularLinkStream:
             # Apply rewiring by updating temporal_edges
             self.temporal_edges[i] = [node1, node2, new_time]
         # Print the number of edges rewired
-        print(f'{len(selected)} edges rewired!')
-    
+        print(f'{len(selected)} edges rewired!')   
     def random_scenario_generator(self):
+        """
+        KOFTTTT
+        """
         pass
     def snap_shot_scenario(self, number_of_slices: int, fixed: bool = True):
         """
         Generate a scenario by partitioning time intervals and nodes into communities.
-
         Args:
             number_of_slices (int): The number of time intervals to divide the scenario into.
             fixed (bool, optional): If True, evenly divides time intervals; if False, varies interval length. Default is True.
