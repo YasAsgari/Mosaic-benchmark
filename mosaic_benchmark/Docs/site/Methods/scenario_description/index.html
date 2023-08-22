@@ -63,6 +63,22 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Scenario description</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ad-hoc-scenario-example">Ad-hoc scenario example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#snapshot-scenario-example">Snapshot scenario example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#random-scenario-example">Random scenario example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#emptying-mosaic">Emptying Mosaic</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#random-scenario-example_1">Random scenario example</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../visualisation/">Visualisation</a>
@@ -93,6 +109,126 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="scenario-description">Scenario description</h1>
+<p>As explained in the paper, we have implemented three different methods for generating the communities in this library.</p>
+<h2 id="methods">Methods</h2>
+<ol>
+<li>
+<p>Ad-hoc scenario: The experimenter designs the communities based on their research questions.</p>
+</li>
+<li>
+<p>Snapshots: It helps us to have snapshots (with fixed or varying windowsize) so that the edges inside have a continuous time occurence.</p>
+</li>
+<li>
+<p>Random: A function that generates approximately a number of communities, different in size of nodes and time domains.</p>
+</li>
+</ol>
+<h3 id="ad-hoc-scenario-example">Ad-hoc scenario example</h3>
+<pre><code class="language-python">from mosaic_benchmark import ModularLinkStream
+M=ModularLinkStream(number_of_nodes=10, t_start=0,t_end=4)
+M.add_community([0,1,2,3,4],0,4)
+M.add_community([5,6,7,8,9],0,4)
+M.communities
+</code></pre>
+<p>The parameters are:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nodes</td>
+<td>List</td>
+<td>list of Integer indices inside a community</td>
+</tr>
+<tr>
+<td>t_start</td>
+<td>Float</td>
+<td>Starting time for community</td>
+</tr>
+<tr>
+<td>t_end</td>
+<td>Float</td>
+<td>Ending time for community</td>
+</tr>
+</tbody>
+</table>
+<h3 id="snapshot-scenario-example">Snapshot scenario example</h3>
+<pre><code class="language-python">from mosaic_benchmark import ModularLinkStream
+M=ModularLinkStream(number_of_nodes=10, t_start=0,t_end=4)
+#Varying windowsizes
+M.snap_shot_scenario(3, fixed=False)
+print('varying',M.communities)
+
+
+#Fixed windowsizes
+M.clear_communities()
+M.snap_shot_scenario(3, fixed=True)
+print('fixed',M.communities)
+
+</code></pre>
+<p>The parameters are:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number_of_slices</td>
+<td>int</td>
+<td>The number of time intervals to divide the scenario into.</td>
+</tr>
+<tr>
+<td>fixed</td>
+<td>bool, optional</td>
+<td>If True, evenly divides time intervals; if False, varies interval length. Default is True.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="random-scenario-example">Random scenario example</h3>
+<pre><code class="language-python">from mosaic_benchmark import ModularLinkStream
+M=ModularLinkStream(number_of_nodes=10, t_start=0,t_end=4)
+M.random_scenario(3)
+M.communities
+</code></pre>
+<p>The parameters are:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>approx_order_of_communities:</td>
+<td>int</td>
+<td>it gives an approximate number of communities</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note that the algorithm filters communities with less 2 nodes.</strong></p>
+<h2 id="emptying-mosaic">Emptying Mosaic</h2>
+<p>As described in the paper, we can empty the mosaics randomly based on our need to create a more realistic scenario.</p>
+<p>To do so, we can use the method named <code>empty_mosaics</code> which has only one parameter which is the probability of emptying which is called <code>gamma</code>.</p>
+<h3 id="random-scenario-example_1">Random scenario example</h3>
+<pre><code class="language-python">from mosaic_benchmark import ModularLinkStream
+M=ModularLinkStream(number_of_nodes=10, t_start=0,t_end=100)
+M.random_scenario(40)
+print('before', len(M.communities))
+#Emptying
+M.empty_mosaics(gamma=0.5)
+print('after', len(M.communities))
+
+</code></pre>
               
             </div>
           </div><footer>

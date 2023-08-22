@@ -65,6 +65,8 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Visualisation</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -93,6 +95,18 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="visualisation">Visualisation</h1>
+<p>Inorder to visualize the communities, we have provided a function that shows different communities.</p>
+<blockquote>
+<p>for better visualisations regarding the linkstreams, use the <a href="https://tnetwork.readthedocs.io/en/latest/notebooks/demo_visu.html">tnetwork</a>!</p>
+</blockquote>
+<h2 id="example">Example</h2>
+<pre><code class="language-python">from mosaic_benchmark import ModularLinkStream
+M=ModularLinkStream(number_of_nodes=20, t_start=0,t_end=10)
+M.snap_shot_scenario(number_of_slices=4, fixed=False)
+
+#Visualize
+M.plot()
+</code></pre>
               
             </div>
           </div><footer>

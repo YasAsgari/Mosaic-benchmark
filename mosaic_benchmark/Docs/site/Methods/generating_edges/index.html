@@ -61,6 +61,12 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Generating edges</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#procedure">Procedure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rewiring-noise">Rewiring noise</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../scenario_description/">Scenario description</a>
@@ -93,6 +99,117 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="generating-edges">Generating edges</h1>
+<p>This library generate edges in a modular structure based on the paper ... .</p>
+<h2 id="procedure">Procedure</h2>
+<p>It follows a two step process:</p>
+<ol>
+<li>
+<p>Generating edges inside communities</p>
+</li>
+<li>
+<p>Generating edges between communities</p>
+</li>
+</ol>
+<p>Each of these steps, also follow two subsequent processes:</p>
+<ol>
+<li>
+<p>Creating backbone connectivity network for contributing nodes</p>
+</li>
+<li>
+<p>Add a temporal dimension to this static network using poisson point process.</p>
+</li>
+</ol>
+<p>For the first step, the parameters are explained as below:</p>
+<p><strong>Backbone connectivity network parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alpha</td>
+<td>Float</td>
+<td>[0.5,1): defines the internal density coefficient</td>
+</tr>
+<tr>
+<td>beta</td>
+<td>Float</td>
+<td>[0,1]: related to community identifialbility</td>
+</tr>
+</tbody>
+</table>
+<p>For the second step, the arguments are discussed below:</p>
+<p><strong>Poisson point process parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lambda_in</td>
+<td>Float</td>
+<td>Rate of poisson process for generating temporal edges inside communities</td>
+</tr>
+<tr>
+<td>lambda_out</td>
+<td>Float</td>
+<td>Rate of poisson process for generating temporal edges betweek communities</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rewiring-noise">Rewiring noise</h2>
+<p>Inorder to add imperfections to our linkstream, we introduced a rewiring noise which can be used after the edge generation procedure.</p>
+<p>It has only one paramter: </p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eta</td>
+<td>Float</td>
+<td>[0,1]: rewiring noise probability</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<pre><code class="language-python">from mosaic_benchmark import ModularLinkStream
+M=ModularLinkStream(number_of_nodes=10, t_start=0,t_end=4)
+M.add_community([0,1,2,3,4],0,4)
+M.add_community([5,6,7,8,9],0,4)
+
+#Full clique inside, No edges outside in backbone connectivity network
+M.generate_edges(1,0,1,0)
+
+#Full clique inside and outside in backbone connectivity network (equal rates)
+M.clear_edges()
+M.generate_edges(1,1,1,1)
+
+
+#Full clique inside and outside in backbone connectivity network (dissimilar rates)
+M.clear_edges()
+M.generate_edges(1,1,1,0.01)
+
+
+# Signifact inside and rare outside in backbone connectivity network (similar rates)
+M.clear_edges()
+M.generate_edges(0.8,0.1,1,1)
+
+</code></pre>
+<p><strong>Becarefull that the function gets the attribute with this order:</strong></p>
+<p><code>generate_edges(alpha, beta, lambda_in, lambda_out)</code></p>
               
             </div>
           </div><footer>
