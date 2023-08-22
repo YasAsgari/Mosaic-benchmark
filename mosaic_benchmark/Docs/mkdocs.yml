@@ -7,6 +7,7 @@ nav:
 -methods: 
  -initialization: initialization.md
  -scenario: scenario_description.md
+ -community: community.md
  -edge_generation: generating_edges.md
  -visualisation: visualisation.md
  -export: export.md
