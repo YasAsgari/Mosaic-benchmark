@@ -1,8 +1,15 @@
-site_name: mosaic-benchmark
-sit_url: https://github.com/YasAsgari/Mosaic-benchmark
+site_name: Mosaic benchmark
+site_url: https://github.com/YasAsgari/Mosaic-benchmark
 nav: 
 -Home: index.md
--Userguide: userguide.md
--API: api_reference.md
+-install: installing.md
+-tutorial: tutorial.md
+-methods: 
+ -initialization: initialization.md
+ -scenario: scenario_description.md
+ -edge_generation: generating_edges.md
+ -visualisation: visualisation.md
+ -export: export.md
+
 
 theme: readthedocs
