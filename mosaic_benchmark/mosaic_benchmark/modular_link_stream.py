@@ -213,14 +213,11 @@ class ModularLinkStream:
         """
         # Divide time interval based on specified number of slices and fixed interval option
         intervals = divide_interval(self.t_start, self.t_end, number_of_slices, fixed)
-        print(intervals)
         # Iterate over generated time intervals
         for (start, end) in intervals:
             # Divide available nodes into partitions
             partitions = divide_nodes(self.number_of_nodes)
-            print(partitions)
             # Iterate over node partitions
             for nodes in partitions:
-                print(nodes, start,end)
                 # Add a community using the partitioned nodes, within the current time interval
                 self.add_community(nodes, start, end)
