@@ -11,6 +11,7 @@ from mosaic_benchmark.scenario_checker import (check_nodes_validity,
                                                  check_time_validity,
                                                  check_overlapping_scenario)
 from mosaic_benchmark.snapshot_scenario_helper import divide_interval, divide_nodes
+from mosaic_benchmark.random_scenario_helper import random_scenario
 # Define a class for managing a modular link stream
 class ModularLinkStream:
     """Class to create the linkstream"""
@@ -197,9 +198,21 @@ class ModularLinkStream:
         print(f'{len(selected)} edges rewired!')   
     def random_scenario_generator(self):
         """
-        KOFTTTT
+        Generate random scenarios for community partitions and add them to the instance.
+        This method generates partitions of communities based on a specified time range,
+        and adds each community with its associated nodes and time range to the instance.
+
+        Args:
+            None (Uses instance attributes)
+
+        Returns:
+            None
         """
-        pass
+        partitions = random_scenario(self.number_of_nodes, self.t_start, self.t_end)  # Generate random community partitions
+        for community in partitions:
+            nodes, start, end = community
+            self.add_community(nodes, start, end)  # Add each community to the instance
+        print(f'{len(partitions)} communities added!')
     def snap_shot_scenario(self, number_of_slices: int, fixed: bool = True):
         """
         Generate a scenario by partitioning time intervals and nodes into communities.
