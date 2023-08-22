@@ -196,19 +196,19 @@ class ModularLinkStream:
             self.temporal_edges[i] = [node1, node2, new_time]
         # Print the number of edges rewired
         print(f'{len(selected)} edges rewired!')   
-    def random_scenario_generator(self):
+    def random_scenario(self,approx_order_of_communities:int):
         """
         Generate random scenarios for community partitions and add them to the instance.
         This method generates partitions of communities based on a specified time range,
         and adds each community with its associated nodes and time range to the instance.
 
         Args:
-            None (Uses instance attributes)
+            approx_order_of_communities: it gives an approximate number of communities
 
         Returns:
             None
         """
-        partitions = random_scenario(self.number_of_nodes, self.t_start, self.t_end)  # Generate random community partitions
+        partitions = random_scenario(self.number_of_nodes, self.t_start, self.t_end, approx_order_of_communities)  # Generate random community partitions
         for community in partitions:
             nodes, start, end = community
             self.add_community(nodes, start, end)  # Add each community to the instance
@@ -219,7 +219,6 @@ class ModularLinkStream:
         Args:
             number_of_slices (int): The number of time intervals to divide the scenario into.
             fixed (bool, optional): If True, evenly divides time intervals; if False, varies interval length. Default is True.
-
         Returns:
             None
         """
