@@ -28,11 +28,12 @@ def divide_interval_equal(t_start: float, t_end: float, number_of_slices: int) -
     intervals = []
     # Iterate through each slice and determine its start and end points
     for i in range(number_of_slices):
-        start = t_start + i * slice_length
+        start = round(t_start + i * slice_length,2)
         # Calculate the end point of the current slice
         # For all but the last slice, it's the start point plus the slice length
         # For the last slice, it's the same as the overall interval's end point
         end = start + slice_length if i < number_of_slices - 1 else t_end
+        end=round(end, 2)
         # Add the interval to the list of intervals
         intervals.append((start, end))
     # Return the list of divided intervals
