@@ -1,4 +1,4 @@
-#Project description
+# Project description
 
 Temporal networks offer valuable insights into dynamic complex systems, capturing the evolving nature of social, biological, and technological interactions. Community structure is a critical feature of real networks, revealing the internal organization of nodes. Dynamic community detection algorithms uncover strongly connected node groups, unveiling hidden temporal patterns and community dynamics in temporal networks. 
 
