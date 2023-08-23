@@ -1,6 +1,6 @@
 # Installing Mosaic-Benchmark
 
-`Mosaic-Benchmark` *requires* python\>=3.8.
+`mosaic-benchmark` *requires* python\>=3.8.
 
 To install the latest version of our library just download (or clone)
 the current project, open a terminal and run the following commands:

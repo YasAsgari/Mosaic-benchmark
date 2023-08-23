@@ -1,11 +1,11 @@
 # Quick Start
 
-`Mosaic-Benchmark` is a python library that allows to create modular linkstreams which can be used in format. 
+`mosaic-benchmark` is a python library that allows to create modular linkstreams which can be used in format. 
 
 
 ## Tutorial
 
-Creating modular linkstreams using `Mosaic-Benchmark` is easy as this:
+Creating modular linkstreams using `mosaic-benchmark` is easy as this:
 
 ``` python
 from mosaic_benchmark import ModularLinkStream
@@ -38,7 +38,7 @@ Moreover, you can also visualize communities.
 M.plot()
 ```
 
-I know, plain tutorials are overrated: if you want to explore `Mosaic-benchmark`
+I know, plain tutorials are overrated: if you want to explore `mosaic-benchmark`
 functionalities, please start playing around with our interactive
 [Google Colab
 Notebook](https://colab.research.google.com/drive/1_H0OU6LU_koyQnbJhS_P5DwC34U00hcG?usp=sharing)!
@@ -46,7 +46,7 @@ Notebook](https://colab.research.google.com/drive/1_H0OU6LU_koyQnbJhS_P5DwC34U00
 ## FAQ
 
 **Q1.** I developed a novel Scenario description or generating edges method and I would like to see it
-integrated in `Mosaic-Benchmark`. What should I do?
+integrated in `mosaic-Benchmark`. What should I do?
 
 **A1.** That's great! Just open an issue on the project
 [GitHub](https://github.com/YasAsgari/Mosaic-benchmark) briefly describing the

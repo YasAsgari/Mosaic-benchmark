@@ -5,7 +5,7 @@ Temporal networks offer valuable insights into dynamic complex systems, capturin
 However, evaluating the performance of these algorithms remains a challenge. A well-established method is to use tests that rely on synthetic graphs. Yet, this approach does not suit temporal networks with instantaneous edges and continuous time domains, known as link streams. To address this gap, we propose a novel benchmark comprising predefined communities that simulate synthetic modular link streams. 
 
 
-``Mosaic-Benchmark`` is a library for creating modular link streams for testing dynamic community detection algorithms in complex temporal networks: it creates communities, visualises them and exports the network to csv files.
+``mosaic-benchmark`` is a library for creating modular link streams for testing dynamic community detection algorithms in complex temporal networks: it creates communities, visualises them and exports the network to csv files.
 
 
 ## Citation
