@@ -1,5 +1,7 @@
 """Checking the scenario based on the limits"""
 from mosaic_benchmark.mosaic_community import Mosaic
+
+
 def check_nodes_validity(nodes: list[int], number_of_nodes: int) -> bool:
     """
     Check if all node indices are within the valid range.
@@ -18,22 +20,31 @@ def check_nodes_validity(nodes: list[int], number_of_nodes: int) -> bool:
     # Otherwise, it will return True.
     return all(0 <= node_index <= number_of_nodes for node_index in nodes)
 
-def check_time_validity(t_start_community: float, t_end_community: float, t_start_linkstream: float, t_end_linkstream: float) -> bool:
+
+def check_time_validity(
+    t_start_community: float,
+    t_end_community: float,
+    t_start_linkstream: float,
+    t_end_linkstream: float,
+) -> bool:
     """
     Check if a community time interval is fully contained within a linkstream time interval.
-    
+
     Args:
         t_start_community (float): The start time of the community interval.
         t_end_community (float): The end time of the community interval.
         t_start_linkstream (float): The start time of the linkstream interval.
         t_end_linkstream (float): The end time of the linkstream interval.
-        
+
     Returns:
         bool: True if the community interval is fully contained within the linkstream interval, False otherwise.
     """
     # Return True if the community interval is fully contained within the linkstream interval
     # This is the case if both the start and end times of the community interval are within the linkstream interval.
-    return t_start_community >= t_start_linkstream and t_end_community <= t_end_linkstream
+    return (
+        t_start_community >= t_start_linkstream and t_end_community <= t_end_linkstream
+    )
+
 
 def check_overlapping_communities(mosaic1: Mosaic, mosaic2: Mosaic) -> bool:
     """
@@ -52,7 +63,10 @@ def check_overlapping_communities(mosaic1: Mosaic, mosaic2: Mosaic) -> bool:
         return any(node in mosaic2.nodes for node in mosaic1.nodes)
     return False
 
-def check_overlapping_scenario(existing_communities: dict[str, Mosaic], mosaic_to_add: Mosaic) -> bool:
+
+def check_overlapping_scenario(
+    existing_communities: dict[str, Mosaic], mosaic_to_add: Mosaic
+) -> bool:
     """
     Checks for overlapping scenarios between the given 'mosaic_to_add' and existing community mosaics.
 
@@ -69,4 +83,7 @@ def check_overlapping_scenario(existing_communities: dict[str, Mosaic], mosaic_t
     """
     # Iterate through each existing community's mosaic and check for overlapping scenarios with 'mosaic_to_add'.
     # Returns True only if any existing community scenarios do overlap with the provided mosaic.
-    return any(check_overlapping_communities(comm, mosaic_to_add) for comm in existing_communities.values())
+    return any(
+        check_overlapping_communities(comm, mosaic_to_add)
+        for comm in existing_communities.values()
+    )

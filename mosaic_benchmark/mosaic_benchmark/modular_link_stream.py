@@ -5,13 +5,20 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from mosaic_benchmark.mosaic_community import Mosaic
-from mosaic_benchmark.edge_generator import outside_temporal_edges, inside_temporal_edges
+from mosaic_benchmark.edge_generator import (
+    outside_temporal_edges,
+    inside_temporal_edges,
+)
 from mosaic_benchmark.visualisation_helper import visualize_mosaics
-from mosaic_benchmark.scenario_checker import (check_nodes_validity, 
-                                                 check_time_validity,
-                                                 check_overlapping_scenario)
+from mosaic_benchmark.scenario_checker import (
+    check_nodes_validity,
+    check_time_validity,
+    check_overlapping_scenario,
+)
 from mosaic_benchmark.snapshot_scenario_helper import divide_interval, divide_nodes
 from mosaic_benchmark.random_scenario_helper import random_scenario
+
+
 # Define a class for managing a modular link stream
 class ModularLinkStream:
     """Class to create the linkstream"""
@@ -36,7 +43,7 @@ class ModularLinkStream:
         self.number_of_communities = 0
         self.communities = {}
         self.temporal_edges = []
-        self.nodes=list(range(self.number_of_nodes))
+        self.nodes = list(range(self.number_of_nodes))
 
     def add_community(self, nodes: list, t_start: float, t_end: float):
         """
@@ -51,13 +58,13 @@ class ModularLinkStream:
         new_mosaic = Mosaic(nodes, t_start, t_end)
         # Check if the provided nodes are within the valid range of node IDs
         if not check_nodes_validity(nodes, self.number_of_nodes):
-            raise ValueError("Nodes are not in range")        
+            raise ValueError("Nodes are not in range")
         # Check if the provided time range is within the valid overall time range
         if not check_time_validity(t_start, t_end, self.t_start, self.t_end):
             raise ValueError("Time is not in range")
         # Check if the new community overlaps with existing communities
         if check_overlapping_scenario(self.communities, new_mosaic):
-            raise ValueError('Communities are overlapping; cannot add')
+            raise ValueError("Communities are overlapping; cannot add")
         # Increment the count of communities and add the new community to the dictionary
         self.number_of_communities += 1
         self.communities[f"c{self.number_of_communities}"] = new_mosaic
@@ -128,7 +135,9 @@ class ModularLinkStream:
         """
         if axis is None:
             _, axis = plt.subplots(nrows=1, ncols=1, figsize=(8, 6), dpi=200)
-        visualize_mosaics(self.t_start, self.t_end, self.number_of_nodes,self.communities, axis)
+        visualize_mosaics(
+            self.t_start, self.t_end, self.number_of_nodes, self.communities, axis
+        )
 
     def empty_mosaics(self, gamma: float):
         """
@@ -153,7 +162,7 @@ class ModularLinkStream:
 
         for comm in communities_to_remove:
             self.communities.pop(comm, None)
-            print(f'Community {comm} has been emptied!')
+            print(f"Community {comm} has been emptied!")
 
     def clear_communities(self):
         """
@@ -165,8 +174,8 @@ class ModularLinkStream:
         Returns:
             None
         """
-        self.communities.clear()             # Clear the communities dictionary
-        self.number_of_communities = 0    # Reset the count of communities
+        self.communities.clear()  # Clear the communities dictionary
+        self.number_of_communities = 0  # Reset the count of communities
 
     def rewiring_noise(self, eta: float):
         """
@@ -195,8 +204,9 @@ class ModularLinkStream:
             # Apply rewiring by updating temporal_edges
             self.temporal_edges[i] = [node1, node2, new_time]
         # Print the number of edges rewired
-        print(f'{len(selected)} edges rewired!')   
-    def random_scenario(self,approx_order_of_communities:int):
+        print(f"{len(selected)} edges rewired!")
+
+    def random_scenario(self, approx_order_of_communities: int):
         """
         Generate random scenarios for community partitions and add them to the instance.
         This method generates partitions of communities based on a specified time range,
@@ -208,11 +218,14 @@ class ModularLinkStream:
         Returns:
             None
         """
-        partitions = random_scenario(self.number_of_nodes, self.t_start, self.t_end, approx_order_of_communities)  # Generate random community partitions
+        partitions = random_scenario(
+            self.number_of_nodes, self.t_start, self.t_end, approx_order_of_communities
+        )  # Generate random community partitions
         for community in partitions:
             nodes, start, end = community
             self.add_community(nodes, start, end)  # Add each community to the instance
-        print(f'{len(partitions)} communities added!')
+        print(f"{len(partitions)} communities added!")
+
     def snap_shot_scenario(self, number_of_slices: int, fixed: bool = True):
         """
         Generate a scenario by partitioning time intervals and nodes into communities.
@@ -225,7 +238,7 @@ class ModularLinkStream:
         # Divide time interval based on specified number of slices and fixed interval option
         intervals = divide_interval(self.t_start, self.t_end, number_of_slices, fixed)
         # Iterate over generated time intervals
-        for (start, end) in intervals:
+        for start, end in intervals:
             # Divide available nodes into partitions
             partitions = divide_nodes(self.number_of_nodes)
             # Iterate over node partitions
