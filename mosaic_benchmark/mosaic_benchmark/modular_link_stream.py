@@ -128,7 +128,7 @@ class ModularLinkStream:
         """
         if axis is None:
             _, axis = plt.subplots(nrows=1, ncols=1, figsize=(8, 6), dpi=200)
-        visualize_mosaics(self.communities, axis)
+        visualize_mosaics(self.t_start, self.t_end, self.number_of_nodes,self.communities, axis)
 
     def empty_mosaics(self, gamma: float):
         """
