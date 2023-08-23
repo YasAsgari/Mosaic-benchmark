@@ -114,6 +114,6 @@ def random_scenario(
         t_start_comm, t_end_comm, v_start_comm, v_end_comm = comm
         if v_end_comm >= v_start_comm + 2:
             nodes = list(range(int(v_start_comm), int(v_end_comm)))
-            communities_to_add.append([nodes, t_start_comm, t_end_comm])
+            communities_to_add.append([nodes, round(t_start_comm,2), round(t_end_comm,2)])
 
     return communities_to_add
