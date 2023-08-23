@@ -1,5 +1,3 @@
-#Project description
-
 Temporal networks offer valuable insights into dynamic complex systems,
 capturing the evolving nature of social, biological, and technological
 interactions. Community structure is a critical feature of real
@@ -15,7 +13,7 @@ with instantaneous edges and continuous time domains, known as link
 streams. To address this gap, we propose a novel benchmark comprising
 predefined communities that simulate synthetic modular link streams.
 
-``Mosaic-Benchmark`` is a library for creating modular link streams for
+``mosaic-benchmark`` is a library for creating modular link streams for
 testing dynamic community detection algorithms in complex temporal
 networks: it creates communities, visualises them and exports the
 network to csv files.
@@ -25,7 +23,9 @@ Citation
 
 If you use our algorithm, please cite the following works:
 
-   paper ## Dependencies
+   paper 
+   
+## Dependencies
 
 Mosaic is written in Python and requires the following package to run:
 
