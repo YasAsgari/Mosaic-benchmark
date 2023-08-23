@@ -29,6 +29,6 @@ Mosaic is written in Python and requires the following package to run:
 * itertools
 
 ## Tutorial
-Check out the official [tutorial](https://colab.research.google.com/drive/1_H0OU6LU_koyQnbJhS_P5DwC34U00hcG?usp=sharing)! to get started!
+Check out the official [tutorial](https://colab.research.google.com/drive/1_H0OU6LU_koyQnbJhS_P5DwC34U00hcG?usp=sharing) to get started!
 
 
