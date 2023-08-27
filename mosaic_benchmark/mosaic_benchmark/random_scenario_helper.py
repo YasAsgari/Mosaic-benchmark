@@ -1,4 +1,4 @@
-"""KOFT"""
+"""Method for creating random scenario"""
 import random  # Import the 'random' module for generating random numbers.
 
 
