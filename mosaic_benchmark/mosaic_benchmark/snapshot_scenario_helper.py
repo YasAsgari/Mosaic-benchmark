@@ -27,7 +27,7 @@ def divide_interval_equal(
     # Calculate the length of the entire interval
     interval_length = t_end - t_start
     # Calculate the length of each individual slice
-    slice_length = interval_length / number_of_slices
+    slice_length = round(interval_length / number_of_slices,2)
     # Initialize a list to store the resulting intervals
     intervals = []
     # Iterate through each slice and determine its start and end points
